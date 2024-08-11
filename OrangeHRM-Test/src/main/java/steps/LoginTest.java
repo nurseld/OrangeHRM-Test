@@ -41,4 +41,74 @@ public class LoginTest {
         Assert.assertTrue("Dashboard is not displayed", isDashboardDisplayed);
 
     }
+
+    @When("User enters invalid username {string} and password {string}")
+    public void userEntersInvalidUsernameAndPassword(String username, String password) {
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
+        loginPage.clickLoginButton();
+    }
+
+    @Then("User should see an error message indicating invalid username")
+    public void userShouldSeeAnErrorMessageIndicatingInvalidUsername() {
+        String actualErrorMessage = loginPage.getErrorMessage();
+        String expectedErrorMessage = "Invalid credentials"; // Adjust based on actual message
+        Assert.assertTrue(actualErrorMessage.contains(expectedErrorMessage));
+    }
+
+    @When("User enters valid username {string} and invalid password {string}")
+    public void userEntersValidUsernameAndInvalidPassword(String username, String password) {
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
+        loginPage.clickLoginButton();
+    }
+
+    @Then("User should see an error message indicating invalid password")
+    public void userShouldSeeAnErrorMessageIndicatingInvalidPassword() {
+        String actualErrorMessage = loginPage.getErrorMessage();
+        String expectedErrorMessage = "Invalid credentials"; // Adjust based on actual message
+        Assert.assertTrue(actualErrorMessage.contains(expectedErrorMessage));
+    }
+
+    @When("User enters blank username and valid password {string}")
+    public void userEntersBlankUsernameAndValidPassword(String password) {
+        loginPage.enterUsername(""); // Blank username
+        loginPage.enterPassword(password);
+        loginPage.clickLoginButton();
+    }
+
+    @Then("User should see an error message indicating username is required")
+    public void userShouldSeeAnErrorMessageIndicatingUsernameIsRequired() {
+        String actualErrorMessage = loginPage.getWarning();
+        String expectedErrorMessage = "Required"; // Adjust based on actual message
+        Assert.assertTrue(actualErrorMessage.contains(expectedErrorMessage));
+    }
+
+    @When("User enters valid username {string} and blank password")
+    public void userEntersValidUsernameAndBlankPassword(String username) {
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(""); // Blank password
+        loginPage.clickLoginButton();
+    }
+
+    @Then("User should see an error message indicating password is required")
+    public void userShouldSeeAnErrorMessageIndicatingPasswordIsRequired() {
+        String actualErrorMessage = loginPage.getWarning();
+        String expectedErrorMessage = "Required"; // Adjust based on actual message
+        Assert.assertTrue(actualErrorMessage.contains(expectedErrorMessage));
+    }
+
+    @When("User enters blank username and blank password")
+    public void userEntersBlankUsernameAndBlankPassword() {
+        loginPage.enterUsername(""); // Blank username
+        loginPage.enterPassword(""); // Blank password
+        loginPage.clickLoginButton();
+    }
+
+    @Then("User should see an error message indicating both fields are required")
+    public void userShouldSeeAnErrorMessageIndicatingBothFieldsAreRequired() {
+        String actualErrorMessage = loginPage.getWarning();
+        String expectedErrorMessage = "Required"; // Adjust based on actual message
+        Assert.assertTrue(actualErrorMessage.contains(expectedErrorMessage));
+    }
 }

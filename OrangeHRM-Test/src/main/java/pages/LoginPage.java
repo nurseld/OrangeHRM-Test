@@ -17,6 +17,8 @@ public class LoginPage {
     private By loginButton = By.tagName("button");
     private By errorMessage = By.xpath("//div[@role='alert']");
 
+    private By error = By.cssSelector("span.oxd-text--span.oxd-input-field-error-message");
+
     public LoginPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -36,5 +38,13 @@ public class LoginPage {
 
     public boolean isErrorMessageDisplayed() {
         return driver.findElement(errorMessage).isDisplayed();
+    }
+
+    public String getErrorMessage() {
+        return driver.findElement(errorMessage).getText();
+    }
+
+    public String getWarning(){
+        return driver.findElement(error).getText();
     }
 }
