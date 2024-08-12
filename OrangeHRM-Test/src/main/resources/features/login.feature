@@ -1,10 +1,12 @@
 Feature: Login
+  @success_login
   Scenario: Successful login with valid credentials
     Given User is on the login page
     When User enters valid username and password
     And User clicks on the login button
     Then User should be redirected to the dashboard
 
+    @failed_login
   Scenario: User attempts to log in with invalid username
     Given User is on the login page
     When User enters invalid username "InvalidUser" and password "admin123"
